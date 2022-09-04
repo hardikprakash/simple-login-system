@@ -1,13 +1,12 @@
 from flask import Flask,render_template,request,redirect,url_for,session,flash
-import mysql.connector
+import sqlite3
 import os
 
 app=Flask(__name__)
 app.secret_key=os.urandom(24)
 
-conn=mysql.connector.connect(host="remotemysql.com", user="lIVFZtMuKd", password="sUVIYwkDjj", database="lIVFZtMuKd")
-
-cursor=conn.cursor()
+con = sqlite3.connect("main.db")
+cursor=con.cursor()
 
 @app.route('/')
 def login():
