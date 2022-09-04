@@ -22,7 +22,7 @@ def register():
     psw=request.form.get('psw')
 
     cursor.execute("""INSERT INTO `users` (`Name`,`AgeGroup`,`FlatNumber`,`Email`,`Username`,`Password`) VALUES ('{}','{}',{},'{}','{}','{}');""".format(name,age,flat,email,username,psw))
-    conn.commit()
+    con.commit()
 
     return redirect('/')
 
