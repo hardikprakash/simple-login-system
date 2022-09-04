@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>CoviSafe | Login</title>
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+    </head>
+    <body>
+        <section>
+            <div class="container">
+                <div class="user signinBx">
+                    <div class="imgBx">
+                        <img src="{{ url_for('static', filename='img2.png') }}">
+                    </div>
+                    <div class="formBx">
+                        <form action="/login_validation" method="POST" id="form" autocomplete="off">
+                            <h2>CoviSafe</h2>
+                            <input type="text" placeholder="Username" name="login-uid" autocomplete="off" required>
+                            <div id = "passwordDiv">
+                                <img src="/static/eyeClosed.png" id="eye" onmousedown="mouseDown()" onmouseup="mouseUp()" ontouchstart = "mouseDown()" ontouchend="mouseUp()">
+                                <input type="password" placeholder="Password" name="psw-login" autocomplete="none" required>
+                            </div>
+                            <center><input type="submit" name="login-submitform" value="Login"></center>
+                            <p class="signup">Want to register? <a href="#" onclick="toggleForm();">Click here.</a></p>
+                        </form>
+                    </div>
+                </div>
+                <div class="user registerBx">
+                    <div class="formBx">
+                        <form action="/register" method="POST" id="form" autocomplete="off">
+                            <h2>CoviSafe</h2>
+                            <input type="text" placeholder="Name" name="name" autocomplete="off" required>
+
+                          
+                            <select name="age-group" id="class" required>
+                            <option value="" disabled selected hidden>Select Age Group</option> 
+                            <option value="0-6">0-14</option>
+                            <option value="6-14">6-14</option>
+                            <option value="14-25">14-25</option>
+                            <option value="20-35">20-35</option>
+                            <option value="35-50">35-50</option>
+                            <option value="50-65">50-65</option>
+                            <option value="65+">65+</option>
+                            </select>
+
+                            
+                            <input type="text" placeholder="Flat Number" name="flat" autocomplete="off" required>
+                            <input type="text" placeholder="E-mail Address" name="email" autocomplete="off" required>   
+                            <input type="text" placeholder="Username" name="username" autocomplete="off" required>
+                            <div id = "passwordDiv2">
+                                <img src="/static/eyeClosed.png" id="eye2" onmousedown="mouseDown2()" onmouseup="mouseUp2()" ontouchstart = "mouseDown2()" ontouchend="mouseUp2()">
+                                <input type="password" placeholder="Password" name="psw" autocomplete="none" required>
+                            </div>
+                            <center><input type="submit" name="register-submitform" value="Register"></center>
+                            <center><p class="signup">Already registered? <a href="#" onclick="toggleForm();">Login here.</a></p></center>
+                        </form>
+                    </div>
+                    <div class="imgBx">
+                        <img src="{{ url_for('static', filename='img1.png') }}">
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <footer>Stay Safe. Stay Positive.</footer>
+        <script>
+            const eye = document.getElementById("eye");
+            const passBox = document.querySelector("#passwordDiv input");
+            const eye2 = document.getElementById("eye2");
+            const passBox2 = document.querySelector("#passwordDiv2 input");
+
+            function mouseDown(){
+                    passBox.type="text";
+                }
+    
+            function mouseUp(){
+                    eye.src = "/static/eyeClosed.png";
+                    passBox.type="password";
+                    passBox.focus()
+                }
+            
+            function mouseDown2(){
+                    passBox2.type="text";
+                }
+    
+            function mouseUp2(){
+                    eye2.src = "/static/eyeClosed.png";
+                    passBox2.type="password";
+                    passBox2.focus()
+                }
+            
+            function toggleForm(){
+                    var container = document.querySelector('.container');
+                    container.classList.toggle('active')
+                }
+          </script>
+    </body>
+</html>
