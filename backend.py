@@ -1,6 +1,7 @@
 from flask import Flask,render_template,request,redirect,url_for,session,flash
 import sqlite3
 import os
+import datetime
 
 app=Flask(__name__)
 app.secret_key=os.urandom(24)
@@ -22,7 +23,7 @@ def register():
     psw=request.form.get('psw')
 
     try:
-        cursor.execute("""INSERT INTO `users` (`Name`,`AgeGroup`,`FlatNumber`,`Email`,`Username`,`Password`) VALUES('{}','{}',{},'{}','{}','{}');""".format(name,age,flat,email,username,psw))
+        cursor.execute("""INSERT INTO `users` (`Name`,`AgeGroup`,`FlatNumber`,`Email`,`Username`,`Password`) VALUES('{}','{}','{}','{}','{}','{}');""".format(name,age,flat,email,username,psw))
         con.commit()
     except:
         print("An Error Ocurred, Fields mayn't be unique/correct; Try different values.")
@@ -49,8 +50,7 @@ def login_validation():
         NearestFlat = "NULL"
         uplim = int(UserFlat) + 5
         downlim = int(UserFlat) - 5
-        cursor.execute("SELECT SYSDATE() FROM DUAL;")
-        CurDate = cursor.fetchall()
+        CurDate = (datetime.datetime.now()).strftime("%d%m%Y")
         CurDate = (CurDate[0])[0]
         CurDate = CurDate.date()
         cursor.execute("SELECT covid_details.FlatNumber, covid_details.Date FROM users,covid_details WHERE (covid_details.FlatNumber BETWEEN '{}' AND '{}') AND users.FlatNumber=covid_details.FlatNumber AND (IsPositive = 1);".format(downlim, uplim))
@@ -58,7 +58,7 @@ def login_validation():
         DangerFlats = []
 
         for i in PosFlats:
-            if (i[1] - CurDate).days < 15 or (i[1] - CurDate).days > -15:
+            if (datetime.datetime.strptime(i[1], "%d%m%Y") - datetime.datetime.strptime(CurDate, "%d%m%Y").days < 15) or (i[1] - CurDate).days > -15:
                 DangerFlats.append(i[0])
         FlatStr = ""
         if len(DangerFlats) == 0:
