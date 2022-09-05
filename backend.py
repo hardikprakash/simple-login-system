@@ -6,7 +6,7 @@ import datetime
 app=Flask(__name__)
 app.secret_key=os.urandom(24)
 
-con = sqlite3.connect("simple-login-system/main.db")
+con = sqlite3.connect("main.db")
 cursor=con.cursor()
 
 @app.route('/')
@@ -23,8 +23,7 @@ def register():
     psw=request.form.get('psw')
 
     try:
-        cursor.execute("""INSERT INTO `users` (`Name`,`AgeGroup`,`FlatNumber`,`Email`,`Username`,`Password`) VALUES('{}','{}','{}','{}','{}','{}');""".format(name,age,flat,email,username,psw))
-        con.commit()
+        cursor.execute("""INSERT INTO users VALUES(?);""", [""])
     except:
         print("An Error Ocurred, Fields mayn't be unique/correct; Try different values.")
     return redirect('/')
