@@ -5,7 +5,7 @@ import os
 app=Flask(__name__)
 app.secret_key=os.urandom(24)
 
-con = sqlite3.connect("main.db")
+con = sqlite3.connect("simple-login-system/main.db")
 cursor=con.cursor()
 
 @app.route('/')
