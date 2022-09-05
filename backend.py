@@ -23,7 +23,7 @@ def register():
 
     try:
         cursor.execute("""INSERT INTO `users` (`Name`,`AgeGroup`,`FlatNumber`,`Email`,`Username`,`Password`) VALUES('{}','{}',{},'{}','{}','{}');""".format(name,age,flat,email,username,psw))
-        conn.commit()
+        con.commit()
     except:
         print("An Error Ocurred, Fields mayn't be unique/correct; Try different values.")
     return redirect('/')
