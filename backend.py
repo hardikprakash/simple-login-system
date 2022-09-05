@@ -45,7 +45,6 @@ def login_validation():
     if len(users)>0:
         session['user_id']=(users[0])[0]
         UserFlat = int((users[0])[2])
-        print(UserFlat)
         isSafe = "Yes"
         NearestFlat = "NULL"
         uplim = int(UserFlat) + 5
