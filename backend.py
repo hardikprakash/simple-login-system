@@ -22,8 +22,7 @@ def register():
     psw = str(request.form.get('psw'))
 
     try:
-        cursor.execute(
-            """INSERT INTO users (Name, Email, Username, Password) VALUES();""".format(name, email, username, psw))
+        cursor.execute("""INSERT INTO users (Name, Email, Username, Password) VALUES('{}', '{}', '{}', '{}');""".format(name, email, username, psw))
     except:
         print("An Error Occurred, Fields mayn't be unique/correct; Try different values.")
     return redirect('/')
