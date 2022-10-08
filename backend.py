@@ -1,7 +1,6 @@
-from flask import Flask, render_template, request, redirect, url_for, session, flash
+from flask import Flask, render_template, request, redirect, session
 import sqlite3
 import os
-import datetime
 
 app = Flask(__name__)
 app.secret_key = os.urandom(24)
@@ -17,15 +16,14 @@ def login():
 
 @app.route('/register', methods=['POST'])
 def register():
-    name = request.form.get('name')
-    age = request.form.get('age-group')
-    flat = request.form.get('flat')
-    email = request.form.get('email')
-    username = request.form.get('username')
-    psw = request.form.get('psw')
+    name = str(request.form.get('name'))
+    email = str(request.form.get('email'))
+    username = str(request.form.get('username'))
+    psw = str(request.form.get('psw'))
 
     try:
-        cursor.execute("""INSERT INTO users VALUES(?);""", [""])
+        cursor.execute(
+            """INSERT INTO users (Name, Email, Username, Password) VALUES();""".format(name, email, username, psw))
     except:
         print("An Error Occurred, Fields mayn't be unique/correct; Try different values.")
     return redirect('/')
@@ -45,12 +43,11 @@ def login_validation():
     password = request.form.get('psw-login')
 
     cursor.execute(
-        """SELECT * FROM `users` WHERE `Username` LIKE '{}' AND `Password` LIKE '{}';""".format(uid, password))
+        """SELECT * FROM users WHERE Username LIKE '{}' AND Password LIKE '{}';""".format(uid, password))
     users = cursor.fetchall()
     if len(users) > 0:
-        session['user_id'] = (users[0])[0]
-        return render_template('profile.html', name=(users[0])[0], uname=(users[0])[4], email=(users[0])[3],
-                               flatno=(users[0])[2], IsSafe=isSafe, FlatsStr=FlatStr)
+        session['user_id'] = (users[0])[2]
+        return render_template('profile.html', name=(users[0])[0], uname=(users[0])[2], email=(users[0])[1])
 
     else:
         return redirect('/')
