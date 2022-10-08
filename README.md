@@ -5,6 +5,6 @@
 # Technologies Used:
 Flask, SQLite3, HTML+CSS
 
-#How to use:
+# How to use:
 Import the folder as a project in PyCharm, or your preferred code editor. Modify the database path as per your system, in "backend.py"
 Ensure that Flask, SQLite3 are installed.
